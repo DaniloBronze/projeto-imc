@@ -10,8 +10,15 @@ function getFormValues() {
     return { peso, altura, termoAceito, genero, listaAfazeres };
 }
 
+function showResponse() {
+    const resultForm = document.querySelector('.result-form');
+    if (resultForm) {
+        resultForm.style.display = 'block';
+    }
+}
+
 function isValidForm({ peso, altura, termoAceito, genero, listaAfazeres }) {
-    return !isNaN(peso) && !isNaN(altura) && termoAceito && genero && listaAfazeres;
+    return peso > 0 && altura > 0 && termoAceito && genero && listaAfazeres;
 }
 
 function calculateImc(peso, altura) {
@@ -23,6 +30,7 @@ function exibeImc(imc, resultadoElement, genero, listaAfazeres) {
         const { mensagem, consulta, mensagensAdicionais } = getImcMessage(imc, genero, listaAfazeres);
 
         resultadoElement.textContent = `Seu IMC é: ${imc.toFixed(2)} (${mensagem})`;
+        showResponse();
 
         if (consulta) {
             runConsulta(consulta, mensagensAdicionais);
@@ -31,71 +39,89 @@ function exibeImc(imc, resultadoElement, genero, listaAfazeres) {
 }
 
 function getImcMessage(imc, genero, listaAfazeres) {
-    let mensagem, consulta = null, mensagensAdicionais = null
+    let mensagem, consulta = null, mensagensAdicionais = null;
     
-        if (imc < 18.5) {
-            mensagem = "Abaixo do peso";
-            consulta = `como ganhar massa muscular para ${genero}`;
-            mensagensAdicionais = [
-                "Você é tão magro que se sentar, virar a cabeça e mostrar a língua, fica parecendo um zíper!",
-                "Valeu capa do Batman, daqui a pouco você some",
-                "Você é tão magro(a) que pode usar um varal pra se proteger do sol!",
-                "Você é tão magro(a) que, se virar de lado, some!",
-                "Você é tão magro(a) que é a única mulher do mundo com duas costas!",
-                "Você é tão magro(a) que precisa ficar no mesmo lugar duas vezes para conseguir ter sombra!",
-                "Você é tão magro(a) que se colocar um casaco de peles fica parecendo um cachimbo!",
-                "Você é tão magro(a) que não pode tomar banho pelo risco de cair no ralo!",
-                "Você é tão magro(a) que compra roupas da Barbie! Literalmente!",
-                "Você é tão magro(a) que se peidar anda pra frente"
-            ];
-        } else if (imc >= 18.5 && imc < 24.9) {
-            mensagem = "Peso normal";
-            return { mensagem: `(${mensagem})` };
-        } else if (imc >= 25 && imc < 29.9) {
-            mensagem = "Sobrepeso";
-            consulta = `como emagrecer para ${genero}`;
-            mensagensAdicionais = [
-                "Caraca, você está imenso(a)! Hora de cuidar da saúde.",
-                "Coitada da sua mulher/marido! Vamos dar uma olhada na dieta.",
-                "Cuidado: um pouco menos de peso pode ser mais saudável.",
-                "Oi Padre Infarto de Melo",
-                "Que isso Insulina Julie, dá uma segurada",
-                "Oi Bem frito de Paula",
-                "Olá MACHADO ACÉM",
-                "Parece que você está pronto para um concurso de comer! Hora de dar uma pausa!",
-                "Você está mais 'cheinho' que uma almôndega no molho!",
-                "Olha só, o seu IMC está pedindo férias para a balança!",
-                "Você está com um 'extra' que nem o GPS consegue calcular!"
-            ];
-        } else {
-            mensagem = "Obesidade";
-            consulta = `como emagrecer para ${genero}`;
-            mensagensAdicionais = [
-                "É hora de mudar! Consulte um especialista sobre emagrecimento.",
-                "Procure ajuda para uma dieta equilibrada.",
-                "Sua saúde é importante! Considere planos para emagrecer.",
-                "Catherine Teta-Jones",
-                "Que isso Edson Celulite",
-                "Rodízio Muniz tá maluco",
-                "Cora Margarina, fecha a boca",
-                "Baicon jackson, para!",
-                "Kombi lotada, você tá sem limites",
-                "Parece que a balança está pedindo um aumento de peso!",
-                "Você é tão grandão(a) que precisa de uma cadeira maior para sentar!",
-                "Seu IMC está pedindo uma reunião com o nutricionista!",
-                "Seu peso é tão notável que até a gravidade está te admirando!"
-            ];
-        }
+    if (imc < 18.5) {
+        mensagem = "Abaixo do peso";
+        consulta = `como ganhar massa muscular para ${genero}`;
+        mensagensAdicionais = [
+            "Você é tão magro que se sentar, virar a cabeça e mostrar a língua, fica parecendo um zíper!",
+            "Valeu capa do Batman, daqui a pouco você some",
+            "Você é tão magro(a) que pode usar um varal pra se proteger do sol!",
+            "Você é tão magro(a) que, se virar de lado, some!",
+            "Você é tão magro(a) que é a única mulher do mundo com duas costas!",
+            "Você é tão magro(a) que precisa ficar no mesmo lugar duas vezes para conseguir ter sombra!",
+            "Você é tão magro(a) que se colocar um casaco de peles fica parecendo um cachimbo!",
+            "Você é tão magro(a) que não pode tomar banho pelo risco de cair no ralo!",
+            "Você é tão magro(a) que compra roupas da Barbie! Literalmente!",
+            "Você é tão magro(a) que se peidar anda pra frente"
+        ];
+    } else if (imc >= 18.5 && imc < 24.9) {
+        mensagem = "Peso normal";
+        return { mensagem: `(${mensagem})` };
+    } else if (imc >= 25 && imc < 29.9) {
+        mensagem = "Sobrepeso";
+        consulta = `como emagrecer para ${genero}`;
+        mensagensAdicionais = [
+            "Caraca, você está imenso(a)! Hora de cuidar da saúde.",
+            "Coitada da sua mulher/marido! Vamos dar uma olhada na dieta.",
+            "Cuidado: um pouco menos de peso pode ser mais saudável.",
+            "Oi Padre Infarto de Melo",
+            "Que isso Insulina Julie, dá uma segurada",
+            "Oi Bem frito de Paula",
+            "Olá MACHADO ACÉM",
+            "Parece que você está pronto para um concurso de comer! Hora de dar uma pausa!",
+            "Você está mais 'cheinho' que uma almôndega no molho!",
+            "Olha só, o seu IMC está pedindo férias para a balança!",
+            "Você está com um 'extra' que nem o GPS consegue calcular!"
+        ];
+    } else {
+        mensagem = "Obesidade";
+        consulta = `como emagrecer para ${genero}`;
+        mensagensAdicionais = [
+            "É hora de mudar! Consulte um especialista sobre emagrecimento.",
+            "Procure ajuda para uma dieta equilibrada.",
+            "Sua saúde é importante! Considere planos para emagrecer.",
+            "Catherine Teta-Jones",
+            "Que isso Edson Celulite",
+            "Rodízio Muniz tá maluco",
+            "Cora Margarina, fecha a boca",
+            "Baicon jackson, para!",
+            "Kombi lotada, você tá sem limites",
+            "Parece que a balança está pedindo um aumento de peso!",
+            "Você é tão grandão(a) que precisa de uma cadeira maior para sentar!",
+            "Seu IMC está pedindo uma reunião com o nutricionista!",
+            "Seu peso é tão notável que até a gravidade está te admirando!"
+        ];
+    }
 
-        if (listaAfazeres === 'Sim') {
-            consulta += ` e mande uma lista de afazeres para gênero ${genero}`;
-        }
-        
-        return { mensagem, consulta, mensagensAdicionais };
+    if (listaAfazeres === 'Sim') {
+        consulta += ` e mande uma lista de afazeres para gênero ${genero}`;
+    }
     
+    return { mensagem, consulta, mensagensAdicionais };
+}
+
+function showLoadingInCode() {
+    const resultado = document.querySelector('code');
+    if (resultado) {
+        resultado.innerHTML += `
+        <div class="loader-container" id="loading">
+            <div class="spinner">
+            </div>
+        </div>`;
+    }
+}
+
+function hideLoadingInCode() {
+    const loadingSpan = document.getElementById('loading');
+    if (loadingSpan) {
+        loadingSpan.remove(); // Remove apenas o span de carregamento
+    }
 }
 
 async function runConsulta(consulta, mensagensAdicionais) {
+    showLoadingInCode()
     try {
         const response = await fetch(`/api/generate?prompt=${encodeURIComponent(consulta)}`);
         const result = await response.json();
@@ -106,12 +132,15 @@ async function runConsulta(consulta, mensagensAdicionais) {
 
         const resultado = document.querySelector('code');
         resultado.innerHTML += `<br><strong>Dica:</strong> ${htmlResponse}`;
+        showResponse();
     } catch (error) {
         console.error('Erro ao obter resposta do Gemini:', error);
         document.querySelector('code').innerHTML += `<br>Desculpe, houve um problema ao obter a recomendação.`;
+        showResponse();
+    } finally {
+        hideLoadingInCode();
     }
 }
-
 
 function initCalculaImc() {
     const forms = document.querySelectorAll('.needs-validation');
@@ -123,7 +152,7 @@ function initCalculaImc() {
                 const imc = calculateImc(peso, altura);
                 exibeImc(imc, document.querySelector('code'), genero, listaAfazeres);
             } else {
-                alert('Por favor, insira valores válidos para peso e altura, aceite os termos de uso e preencha todos os campos.');
+                alert('Por favor, insira valores válidos para peso e altura (maiores que 0), aceite os termos de uso e preencha todos os campos.');
             }
         });
     });
@@ -169,4 +198,10 @@ function initThemeDark() {
 document.addEventListener('DOMContentLoaded', () => {
     initThemeDark();
     initCalculaImc();
+    applyInputMasks(); // Adiciona a máscara de entrada(); // Adiciona a máscara de entrada
 });
+
+function applyInputMasks() {
+    $('#peso').inputmask('999', { numericInput: true, placeholder: '0' });
+    $('#altura').inputmask('9{1,2}.99', { numericInput: true, placeholder: '0' });
+}

@@ -10,15 +10,9 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <title>IMC-GPT</title>
-    <script type="importmap">
-        {
-            "imports": {
-                "@google/generative-ai": "https://esm.run/@google/generative-ai"
-            }
-        }
-    </script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/atom-one-dark-reasonable.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/atom-one-dark-reasonable.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
 </head>
 <body>
 
@@ -35,14 +29,14 @@
         <form class="row g-3 needs-validation" novalidate>
             <div class="col-md-4">
                 <label for="peso" class="form-label">Peso (Kg)</label>
-                <input type="text" class="form-control" id="peso" placeholder="75kg" required>
+                <input type="text" class="form-control" id="peso" placeholder="75" required>
                 <div class="invalid-feedback">
                     Peso não pode ser vazio.
                 </div>
             </div>
             <div class="col-md-4">
                 <label for="altura" class="form-label">Altura (m)</label>
-                <input type="text" class="form-control" id="altura" placeholder="1.75cm" required>
+                <input type="text" class="form-control" id="altura" placeholder="1.75" required>
                 <div class="invalid-feedback">
                     Altura não pode ser vazia.
                 </div>
@@ -94,6 +88,7 @@
             <code class="language-markdown" id="resultado"></code>
         </pre>
     </section>
+
 </div>
 
 <!-- Modal -->
@@ -137,7 +132,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
